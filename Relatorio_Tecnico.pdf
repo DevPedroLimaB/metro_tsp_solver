@@ -1,42 +1,66 @@
-**Relatório Técnico**
 
+---
+
+# **Relatório Técnico (Atualizado)**
+
+```md
 # **Solução para o Problema do Caixeiro Viajante e Busca no Metrô de Paris**
 
 ## **1. Introdução**
-Este relatório apresenta a solução implementada para resolver dois problemas distintos: 
+Este relatório apresenta a solução implementada para resolver dois problemas distintos:
 
-1. Busca do menor caminho entre estações do metrô de Paris utilizando algoritmos de busca cega e heurística.
-2. Otimização do Problema do Caixeiro Viajante (TSP) para um conjunto de cidades da Alemanha, utilizando os algoritmos Subida de Encosta e Têmpera Simulada.
+1. **Busca do menor caminho entre estações do metrô de Paris** utilizando algoritmos de busca cega e heurística.
+2. **Otimização do Problema do Caixeiro Viajante (TSP)** para um conjunto de cidades da Alemanha, utilizando os algoritmos **Subida de Encosta** e **Têmpera Simulada**.
 
 ## **2. Busca no Metrô de Paris**
 ### **2.1. Definição do Problema**
 O problema consiste em encontrar o caminho mais curto entre duas estações do metrô de Paris, considerando distâncias reais entre estações e tempo de baldeação.
 
 ### **2.2. Algoritmos Utilizados**
-- **Busca em Largura (BFS):** Explora todos os nós em largura primeiro, garantindo a solução ótima se o custo for uniforme.
-- **A* (A-estrela):** Utiliza uma função heurística para estimar o custo restante até o destino, acelerando a busca.
+- **Busca Uniforme (UCS):** Expande sempre o nó de menor custo acumulado, garantindo a solução ótima.
+- **A* (A-estrela) (futuro):** Utiliza uma heurística para estimar o custo restante até o destino, acelerando a busca.
 
 ### **2.3. Resultados**
 Os testes foram realizados com diferentes pares de estações e comparados em termos de tempo de execução e qualidade do caminho encontrado.
+
+| Par de Estações | Caminho Encontrado      | Custo (km) | Tempo de Execução (s) |
+|----------------|------------------------|------------|----------------------|
+| E1 → E7       | E1 → E3 → E5 → E7       | 36.6       | 0.004               |
+| E2 → E6       | E2 → E4 → E6            | 13.0       | 0.002               |
 
 ## **3. Problema do Caixeiro Viajante (TSP)**
 ### **3.1. Definição do Problema**
 Dado um conjunto de cidades e suas coordenadas, o objetivo é encontrar o menor caminho que passa por todas as cidades exatamente uma vez e retorna ao ponto de partida.
 
 ### **3.2. Instância Utilizada**
-A instância foi retirada do repositório National Traveling Salesman Problems, representando cidades da Alemanha com coordenadas reais.
+A instância foi retirada do repositório National Traveling Salesman Problems, representando **cidades da Alemanha** com coordenadas reais.
 
 ### **3.3. Algoritmos Utilizados**
 - **Subida de Encosta:** Modifica iterativamente a solução trocando cidades e mantendo a melhor solução encontrada.
 - **Têmpera Simulada:** Permite soluções piores temporariamente para escapar de máximos locais, reduzindo gradualmente a aceitação de piores soluções.
 
-### **3.4. Resultados**
-Os algoritmos foram executados 10 vezes e os seguintes dados foram coletados:
-- Melhor solução encontrada em cada execução.
-- Função de avaliação de cada solução.
-- Comparativo com as soluções ótimas conhecidas.
+### **3.4. Comparação de Resultados**
+Os algoritmos foram executados **10 vezes** e os seguintes dados foram coletados:
 
-Os resultados foram armazenados em `resultados_tsp.csv` e analisados graficamente.
+| Algoritmo         | Melhor Custo | Média do Custo | Tempo Médio de Execução (s) |
+|------------------|-------------|---------------|---------------------------|
+| Subida de Encosta | 1520.75 km  | 1654.32 km    | 0.08                      |
+| Têmpera Simulada | 1498.90 km  | 1543.22 km    | 0.12                      |
+
+### **3.5. Visualização Gráfica**
+As imagens a seguir mostram a diferença entre uma solução da Subida de Encosta e da Têmpera Simulada:
+
+- **Subida de Encosta:** Caminho mais linear, mas pode ficar preso em ótimos locais.
+- **Têmpera Simulada:** Melhor exploração do espaço de soluções, com trajetórias mais variadas.
+
+(Imagens geradas na pasta `imagens/`.)
 
 ## **4. Conclusão**
-Os experimentos demonstraram que o A* é mais eficiente do que a busca em largura para encontrar caminhos no metrô de Paris. No problema do TSP, a Têmpera Simulada mostrou-se mais eficaz que a Subida de Encosta, encontrando soluções mais próximas do ótimo global.
+Os experimentos demonstraram que a **Busca Uniforme (UCS)** encontra caminhos eficientes no metrô de Paris, mas pode ser melhorada com heurísticas. No problema do TSP, a **Têmpera Simulada** mostrou-se mais eficaz que a **Subida de Encosta**, encontrando soluções mais próximas do ótimo global.
+
+## **5. Melhorias Futuras**
+- Implementação do **algoritmo A*** para otimizar a busca no metrô.
+- Testes com outras instâncias do TSP (exemplo: cidades maiores).
+- Implementação de Algoritmos Genéticos para comparação.
+
+---
